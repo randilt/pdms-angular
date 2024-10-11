@@ -8,6 +8,8 @@ import { ListPackagesComponent } from './list-packages/list-packages.component';
 import { UpdateDriverComponent } from './update-driver/update-driver.component';
 import { UpdatePackageComponent } from './update-package/update-package.component';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { InvalidDataComponent } from './invalid-data/invalid-data.component';
 
 export const routes: Routes = [
   { path: 'add-driver', component: AddDriverComponent },
@@ -19,6 +21,7 @@ export const routes: Routes = [
   { path: 'update-driver', component: UpdateDriverComponent },
   { path: 'update-package', component: UpdatePackageComponent },
   { path: 'statistics', component: StatisticsComponent },
+  { path: 'invalid-data', component: InvalidDataComponent },
   { path: '', redirectTo: '/add-driver', pathMatch: 'full' },
-  { path: '**', redirectTo: '/list-drivers' }
+  { path: '**', component: PageNotFoundComponent },
 ];
