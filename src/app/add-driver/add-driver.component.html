@@ -1,1 +1,54 @@
-<p>add-driver works!</p>
+<div class="form-container">
+  <h1>Add a New Driver</h1>
+
+  <!-- Static Form UI without functionality -->
+  <form>
+    <!-- Driver Name Input -->
+    <div class="form-group">
+      <label for="driver_name">Name:</label>
+      <input
+        type="text"
+        id="driver_name"
+        name="driver_name"
+        minlength="3"
+        maxlength="20"
+        placeholder="Enter driver name"
+      />
+    </div>
+
+    <!-- Driver Department Dropdown -->
+    <div class="form-group">
+      <label for="driver_department">Department:</label>
+      <select id="driver_department" name="driver_department">
+        <option value="food">Food</option>
+        <option value="furniture">Furniture</option>
+        <option value="electronics">Electronics</option>
+      </select>
+    </div>
+
+    <!-- Driver Licence Input -->
+    <div class="form-group">
+      <label for="driver_licence">Licence:</label>
+      <input
+        type="text"
+        id="driver_licence"
+        name="driver_licence"
+        minlength="5"
+        maxlength="5"
+        placeholder="Enter licence"
+      />
+    </div>
+
+    <!-- Driver Active Status (Checkbox) -->
+    <div class="form-group">
+      <label for="driver_isActive">Is Active:</label>
+      <label class="switch">
+        <input type="checkbox" id="driver_isActive" name="driver_isActive" />
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="button">Add Driver</button>
+  </form>
+</div>
