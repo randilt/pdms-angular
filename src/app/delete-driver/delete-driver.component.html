@@ -1,22 +1,23 @@
 <div class="form-container">
   <h1>Delete Driver</h1>
 
-  <!-- Static Form UI for deleting a driver -->
-  <form>
-    <!-- Driver ID Input -->
+  <form (ngSubmit)="deleteDriver()">
+    <!-- Driver Selection Dropdown -->
     <div class="form-group">
-      <label for="driver_id">Driver ID:</label>
-      <input
-        type="text"
-        id="driver_id"
-        name="driver_id"
-        minlength="10"
-        maxlength="10"
-        placeholder="Enter Driver ID"
-      />
+      <label for="driver_select">Select Driver to Delete:</label>
+      <select
+        id="driver_select"
+        [(ngModel)]="selectedDriverId"
+        name="selectedDriver"
+      >
+        <option value="">Select a driver</option>
+        <option *ngFor="let driver of drivers" [value]="driver.driver_id">
+          {{ driver.driver_name }} ({{ driver.driver_id }})
+        </option>
+      </select>
     </div>
 
     <!-- Delete Button -->
-    <button type="button">Delete Driver</button>
+    <button type="submit" [disabled]="!selectedDriverId">Delete Driver</button>
   </form>
 </div>
