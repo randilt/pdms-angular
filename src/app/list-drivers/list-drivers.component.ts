@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 interface Driver {
-  _id: string;
+  id: string;
   driver_id: string;
   driver_name: string;
   driver_department: string;
@@ -16,7 +16,7 @@ interface Driver {
 @Component({
   selector: 'app-list-drivers',
   standalone: true,
-  imports: [CommonModule, RouterModule, HttpClientModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './list-drivers.component.html',
   styleUrls: ['./list-drivers.component.css'],
 })
