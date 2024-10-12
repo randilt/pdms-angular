@@ -1,8 +1,7 @@
 <div class="form-container">
   <h1>Add a New Package</h1>
 
-  <!-- Static Form UI for adding a package -->
-  <form>
+  <form (ngSubmit)="onSubmit()">
     <!-- Package Title Input -->
     <div class="form-group">
       <label for="package_title">Title:</label>
@@ -10,9 +9,11 @@
         type="text"
         id="package_title"
         name="package_title"
+        [(ngModel)]="package.package_title"
         minlength="3"
         maxlength="15"
         placeholder="Enter package title"
+        required
       />
     </div>
 
@@ -23,8 +24,10 @@
         type="number"
         id="package_weight"
         name="package_weight"
+        [(ngModel)]="package.package_weight"
         min="1"
         placeholder="Enter package weight"
+        required
       />
     </div>
 
@@ -35,9 +38,12 @@
         type="text"
         id="package_destination"
         name="package_destination"
+        [(ngModel)]="package.package_destination"
         minlength="5"
         maxlength="15"
+        pattern="^[A-Za-z0-9]{5,15}$"
         placeholder="Enter destination"
+        required
       />
     </div>
 
@@ -48,6 +54,7 @@
         type="text"
         id="description"
         name="description"
+        [(ngModel)]="package.description"
         maxlength="30"
         placeholder="Enter description (optional)"
       />
@@ -57,25 +64,37 @@
     <div class="form-group">
       <label for="isAllocated">Is Allocated:</label>
       <label class="switch">
-        <input type="checkbox" id="isAllocated" name="isAllocated" />
+        <input
+          type="checkbox"
+          id="isAllocated"
+          name="isAllocated"
+          [(ngModel)]="package.isAllocated"
+        />
         <span class="slider"></span>
       </label>
     </div>
 
     <!-- Driver ID Input -->
     <div class="form-group">
-      <label for="driver_id">Driver ID:</label>
-      <input
-        type="text"
-        id="driver_id"
-        name="driver_id"
-        minlength="24"
-        maxlength="24"
-        placeholder="Enter driver ID"
-      />
+      <label for="driver_select">Select Driver to Delete:</label>
+      <select
+        id="driver_select"
+        [(ngModel)]="selectedDriverId"
+        name="selectedDriver"
+        required
+      >
+        <option value="">Select a driver</option>
+        <option *ngFor="let driver of drivers" [value]="driver._id">
+          {{ driver.driver_name }} ({{ driver.driver_id }})
+        </option>
+      </select>
     </div>
 
     <!-- Submit Button -->
-    <button type="button">Add Package</button>
+    <button type="submit">Add Package</button>
   </form>
+
+  <div *ngIf="message" [ngClass]="{ success: isSuccess, error: !isSuccess }">
+    {{ message }}
+  </div>
 </div>

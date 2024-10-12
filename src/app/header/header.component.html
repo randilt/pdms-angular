@@ -17,30 +17,75 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/add-driver">Add Driver</a>
+        <!-- Driver Dropdown -->
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="driverDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Driver Management
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="driverDropdown">
+            <li>
+              <a class="dropdown-item" routerLink="/add-driver">Add Driver</a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/list-drivers"
+                >List All Drivers</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/update-driver"
+                >Update Driver</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/delete-driver"
+                >Delete Driver</a
+              >
+            </li>
+          </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/list-drivers">List All Drivers</a>
+
+        <!-- Package Dropdown -->
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="packageDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Package Management
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="packageDropdown">
+            <li>
+              <a class="dropdown-item" routerLink="/add-package">Add Package</a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/list-packages"
+                >List All Packages</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/update-package"
+                >Update Package</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/delete-package"
+                >Delete Package</a
+              >
+            </li>
+          </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/update-driver">Update Driver</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/delete-driver">Delete Driver</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/add-package">Add Package</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/list-packages">List All Packages</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/update-package">Update Package</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/delete-package">Delete Package</a>
-        </li>
+
+        <!-- Statistics -->
         <li class="nav-item">
           <a class="nav-link" routerLink="/statistics">CRUD Stats</a>
         </li>
