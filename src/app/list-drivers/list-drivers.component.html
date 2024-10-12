@@ -1,6 +1,10 @@
 <h1>List of Drivers</h1>
 
-<div class="table-container">
+<div *ngIf="loading">Loading drivers...</div>
+
+<div *ngIf="error" class="error-message">{{ error }}</div>
+
+<div *ngIf="!loading && !error" class="table-container">
   <table>
     <thead>
       <tr>
@@ -13,23 +17,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>1234567890</td>
-        <td>John Doe</td>
-        <td>Food</td>
-        <td>ABC123</td>
-        <td>Yes</td>
-        <td>2024-10-11 10:45 AM</td>
+      <tr *ngFor="let driver of drivers">
+        <td>{{ driver.driver_id }}</td>
+        <td>{{ driver.driver_name }}</td>
+        <td>{{ driver.driver_department }}</td>
+        <td>{{ driver.driver_licence }}</td>
+        <td>{{ driver.driver_isActive ? "Yes" : "No" }}</td>
+        <td>{{ driver.driver_createdAt | date : "yyyy-MM-dd HH:mm a" }}</td>
       </tr>
-      <tr>
-        <td>0987654321</td>
-        <td>Jane Smith</td>
-        <td>Furniture</td>
-        <td>XYZ987</td>
-        <td>No</td>
-        <td>2024-10-10 2:30 PM</td>
-      </tr>
-      <!-- Add more static rows as needed -->
     </tbody>
   </table>
 </div>
