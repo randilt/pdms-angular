@@ -1,17 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-
-interface Driver {
-  _id: string;
-  driver_id: string;
-  driver_name: string;
-  driver_department: string;
-  driver_licence: string;
-  driver_isActive: boolean;
-}
-
+import { DriverService, Driver } from '../services/driver.service';
 @Component({
   selector: 'app-update-driver',
   standalone: true,
@@ -23,23 +13,21 @@ export class UpdateDriverComponent implements OnInit {
   drivers: Driver[] = [];
   selectedDriver: Driver | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private driverService: DriverService) {}
 
   ngOnInit() {
     this.fetchDrivers();
   }
 
   fetchDrivers() {
-    this.http
-      .get<Driver[]>('http://localhost:8080/34082115/Durgka/api/v1/drivers')
-      .subscribe({
-        next: (data) => {
-          this.drivers = data;
-        },
-        error: (error) => {
-          console.error('Error fetching drivers:', error);
-        },
-      });
+    this.driverService.getDrivers().subscribe({
+      next: (data) => {
+        this.drivers = data;
+      },
+      error: (error) => {
+        console.error('Error fetching drivers:', error);
+      },
+    });
   }
 
   onDriverSelect(event: Event) {
@@ -59,17 +47,14 @@ export class UpdateDriverComponent implements OnInit {
       driver_isActive: this.selectedDriver.driver_isActive,
     };
 
-    this.http
-      .patch('http://localhost:8080/34082115/Durgka/api/v1/drivers', updateData)
-      .subscribe({
-        next: (response) => {
-          console.log('Driver updated successfully', response);
-          // Optionally, refresh the drivers list
-          this.fetchDrivers();
-        },
-        error: (error) => {
-          console.error('Error updating driver:', error);
-        },
-      });
+    this.driverService.updateDriver(updateData).subscribe({
+      next: (response) => {
+        console.log('Driver updated successfully', response);
+        this.fetchDrivers();
+      },
+      error: (error) => {
+        console.error('Error updating driver:', error);
+      },
+    });
   }
 }

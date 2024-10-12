@@ -1,34 +1,45 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-const baseUrl = 'http://34.129.56.123:8080/34082115/Durgka/api/v1/drivers';
+export interface Driver {
+  _id: string;
+  driver_id: string;
+  driver_name: string;
+  driver_department: string;
+  driver_licence: string;
+  driver_isActive: boolean;
+  driver_createdAt?: string;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class DriverService {
-  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  private apiUrl = 'http://localhost:8080/34082115/Durgka/api/v1/drivers';
 
   constructor(private http: HttpClient) {}
 
-  // 1. Add a new driver (POST)
-  addDriver(driverData: any): Observable<any> {
-    return this.http.post(`${baseUrl}`, driverData, { headers: this.headers });
+  getDrivers(): Observable<Driver[]> {
+    return this.http.get<Driver[]>(this.apiUrl);
   }
 
-  // 2. List all drivers (GET)
-  getDrivers(): Observable<any> {
-    return this.http.get(`${baseUrl}`);
+  addDriver(
+    driver: Omit<Driver, '_id' | 'driver_id' | 'driver_createdAt'>
+  ): Observable<Driver> {
+    return this.http.post<Driver>(this.apiUrl, driver);
   }
 
-  // 3. Delete driver by ID (DELETE)
+  updateDriver(updateData: {
+    id: string;
+    driver_licence: string;
+    driver_department: string;
+    driver_isActive: boolean;
+  }): Observable<any> {
+    return this.http.patch(`${this.apiUrl}`, updateData);
+  }
+
   deleteDriver(driverId: string): Observable<any> {
-    return this.http.delete(`${baseUrl}/${driverId}`);
-  }
-
-  // 4. Update driver license and department by ID (PATCH)
-  updateDriver(driverData: any): Observable<any> {
-    return this.http.patch(`${baseUrl}`, driverData, { headers: this.headers });
+    return this.http.delete(`${this.apiUrl}/${driverId}`);
   }
 }

@@ -1,15 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { Observer } from 'rxjs';
-
-interface Driver {
-  driver_name: string;
-  driver_department: string;
-  driver_licence: string;
-  driver_isActive: boolean;
-}
+import { DriverService, Driver } from '../services/driver.service';
 
 @Component({
   selector: 'app-add-driver',
@@ -19,17 +11,17 @@ interface Driver {
   styleUrls: ['./add-driver.component.css'],
 })
 export class AddDriverComponent {
-  driver: Driver = {
+  driver: Omit<Driver, '_id' | 'driver_id' | 'driver_createdAt'> = {
     driver_name: '',
     driver_department: 'food',
     driver_licence: '',
     driver_isActive: true,
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private driverService: DriverService) {}
 
   onSubmit() {
-    const observer: Observer<Object> = {
+    this.driverService.addDriver(this.driver).subscribe({
       next: (response) => {
         console.log('Driver added successfully', response);
         // Reset the form
@@ -46,10 +38,6 @@ export class AddDriverComponent {
       complete: () => {
         console.log('Observable completed');
       },
-    };
-
-    this.http
-      .post('http://localhost:8080/34082115/Durgka/api/v1/drivers', this.driver)
-      .subscribe(observer);
+    });
   }
 }

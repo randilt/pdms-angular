@@ -1,17 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-
-interface Driver {
-  id: string;
-  driver_id: string;
-  driver_name: string;
-  driver_department: string;
-  driver_licence: string;
-  driver_isActive: boolean;
-  driver_createdAt: string;
-}
+import { DriverService, Driver } from '../services/driver.service';
 
 @Component({
   selector: 'app-list-drivers',
@@ -25,25 +15,23 @@ export class ListDriversComponent implements OnInit {
   loading: boolean = true;
   error: string | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private driverService: DriverService) {}
 
   ngOnInit() {
     this.fetchDrivers();
   }
 
   fetchDrivers() {
-    this.http
-      .get<Driver[]>('http://localhost:8080/34082115/Durgka/api/v1/drivers')
-      .subscribe({
-        next: (data) => {
-          this.drivers = data;
-          this.loading = false;
-        },
-        error: (err) => {
-          console.error('Error fetching drivers:', err);
-          this.error = 'Failed to load drivers. Please try again later.';
-          this.loading = false;
-        },
-      });
+    this.driverService.getDrivers().subscribe({
+      next: (data) => {
+        this.drivers = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error fetching drivers:', err);
+        this.error = 'Failed to load drivers. Please try again later.';
+        this.loading = false;
+      },
+    });
   }
 }
